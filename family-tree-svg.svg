@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <style>
+      .member-box { fill: white; stroke: #333; stroke-width: 2; rx: 8; }
+      .father-lineage { fill: url(#blueGrad); stroke: #1976D2; stroke-width: 2.5; }
+      .mother-lineage { fill: url(#pinkGrad); stroke: #C2185B; stroke-width: 2.5; }
+      .parent-box { fill: url(#purpleGrad); stroke: #5E35B1; stroke-width: 3; }
+      .child-box { fill: url(#yellowGrad); stroke: #F57F17; stroke-width: 3; }
+      .member-name { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #000; }
+      .member-info { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #555; }
+      .line { stroke: #4A5568; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+      .junction { fill: #CBD5E0; stroke: #4A5568; stroke-width: 2; }
+    </style>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E3F2FD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#BBDEFB;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FCE4EC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F8BBD0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#EDE7F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D1C4E9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF9C4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFF59D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#F7FAFC"/>
+  <path d="M 170 185 L 170 220 L 295 220" class="line"/>
+  <path d="M 350 185 L 350 220 L 295 220" class="line"/>
+  <circle cx="295" cy="220" r="5" class="junction"/>
+  <line x1="295" y1="225" x2="295" y2="260" class="line"/>
+  <path d="M 530 185 L 530 220 L 655 220" class="line"/>
+  <path d="M 710 185 L 710 220 L 655 220" class="line"/>
+  <circle cx="655" cy="220" r="5" class="junction"/>
+  <line x1="655" y1="225" x2="655" y2="260" class="line"/>
+  <path d="M 890 185 L 890 220 L 1015 220" class="line"/>
+  <path d="M 1070 185 L 1070 220 L 1015 220" class="line"/>
+  <circle cx="1015" cy="220" r="5" class="junction"/>
+  <line x1="1015" y1="225" x2="1015" y2="260" class="line"/>
+  <path d="M 1250 185 L 1250 220 L 1375 220" class="line"/>
+  <path d="M 1430 185 L 1430 220 L 1375 220" class="line"/>
+  <circle cx="1375" cy="220" r="5" class="junction"/>
+  <line x1="1375" y1="225" x2="1375" y2="260" class="line"/>
+  <path d="M 295 415 L 295 450 L 475 450" class="line"/>
+  <path d="M 655 415 L 655 450 L 475 450" class="line"/>
+  <circle cx="475" cy="450" r="5" class="junction"/>
+  <line x1="475" y1="455" x2="475" y2="550" class="line"/>
+  <path d="M 1015 415 L 1015 450 L 1195 450" class="line"/>
+  <path d="M 1375 415 L 1375 450 L 1195 450" class="line"/>
+  <circle cx="1195" cy="450" r="5" class="junction"/>
+  <line x1="1195" y1="455" x2="1195" y2="550" class="line"/>
+  <path d="M 475 685 L 475 720 L 835 720" class="line"/>
+  <path d="M 1195 685 L 1195 720 L 835 720" class="line"/>
+  <circle cx="835" cy="720" r="6" class="junction"/>
+  <line x1="835" y1="726" x2="635" y2="830" class="line"/>
+  <line x1="835" y1="726" x2="1035" y2="830" class="line"/>
+  <rect x="103" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="100" y="50" width="140" height="135" class="father-lineage" rx="8"/>
+  <circle cx="170" cy="75" r="18" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="164" cy="72" r="2" fill="#fff"/>
+  <circle cx="176" cy="72" r="2" fill="#fff"/>
+  <path d="M 163 80 Q 170 85 177 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="170" y="115" text-anchor="middle" class="member-name">William</text>
+  <text x="170" y="130" text-anchor="middle" class="member-name">Johnson</text>
+  <text x="170" y="150" text-anchor="middle" class="member-info">♂ Male</text>
+  <text x="170" y="168" text-anchor="middle" class="member-info">Born: 1920-03-15</text>
+  <rect x="283" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="280" y="50" width="140" height="135" class="father-lineage" rx="8"/>
+  <circle cx="350" cy="75" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="344" cy="72" r="2" fill="#fff"/>
+  <circle cx="356" cy="72" r="2" fill="#fff"/>
+  <path d="M 343 80 Q 350 85 357 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="350" y="115" text-anchor="middle" class="member-name">Elizabeth</text>
+  <text x="350" y="130" text-anchor="middle" class="member-name">Wilson</text>
+  <text x="350" y="150" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="350" y="168" text-anchor="middle" class="member-info">Born: 1922-07-22</text>
+  <rect x="463" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="460" y="50" width="140" height="135" class="father-lineage" rx="8"/>
+  <circle cx="530" cy="75" r="18" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="524" cy="72" r="2" fill="#fff"/>
+  <circle cx="536" cy="72" r="2" fill="#fff"/>
+  <path d="M 523 80 Q 530 85 537 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="530" y="115" text-anchor="middle" class="member-name">Robert</text>
+  <text x="530" y="130" text-anchor="middle" class="member-name">Miller</text>
+  <text x="530" y="150" text-anchor="middle" class="member-info">♂ Male</text>
+  <text x="530" y="168" text-anchor="middle" class="member-info">Born: 1918-05-10</text>
+  <rect x="643" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="640" y="50" width="140" height="135" class="father-lineage" rx="8"/>
+  <circle cx="710" cy="75" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="704" cy="72" r="2" fill="#fff"/>
+  <circle cx="716" cy="72" r="2" fill="#fff"/>
+  <path d="M 703 80 Q 710 85 717 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="710" y="115" text-anchor="middle" class="member-name">Margaret</text>
+  <text x="710" y="130" text-anchor="middle" class="member-name">Davis</text>
+  <text x="710" y="150" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="710" y="168" text-anchor="middle" class="member-info">Born: 1921-09-18</text>
+  <rect x="823" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="820" y="50" width="140" height="135" class="mother-lineage" rx="8"/>
+  <circle cx="890" cy="75" r="18" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="884" cy="72" r="2" fill="#fff"/>
+  <circle cx="896" cy="72" r="2" fill="#fff"/>
+  <path d="M 883 80 Q 890 85 897 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="890" y="115" text-anchor="middle" class="member-name">Thomas</text>
+  <text x="890" y="130" text-anchor="middle" class="member-name">Brown</text>
+  <text x="890" y="150" text-anchor="middle" class="member-info">♂ Male</text>
+  <text x="890" y="168" text-anchor="middle" class="member-info">Born: 1919-11-03</text>
+  <rect x="1003" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="1000" y="50" width="140" height="135" class="mother-lineage" rx="8"/>
+  <circle cx="1070" cy="75" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="1064" cy="72" r="2" fill="#fff"/>
+  <circle cx="1076" cy="72" r="2" fill="#fff"/>
+  <path d="M 1063 80 Q 1070 85 1077 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="1070" y="115" text-anchor="middle" class="member-name">Helen</text>
+  <text x="1070" y="130" text-anchor="middle" class="member-name">Moore</text>
+  <text x="1070" y="150" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="1070" y="168" text-anchor="middle" class="member-info">Born: 1923-02-28</text>
+  <rect x="1183" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="1180" y="50" width="140" height="135" class="mother-lineage" rx="8"/>
+  <circle cx="1250" cy="75" r="18" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="1244" cy="72" r="2" fill="#fff"/>
+  <circle cx="1256" cy="72" r="2" fill="#fff"/>
+  <path d="M 1243 80 Q 1250 85 1257 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="1250" y="115" text-anchor="middle" class="member-name">Charles</text>
+  <text x="1250" y="130" text-anchor="middle" class="member-name">Taylor</text>
+  <text x="1250" y="150" text-anchor="middle" class="member-info">♂ Male</text>
+  <text x="1250" y="168" text-anchor="middle" class="member-info">Born: 1917-08-12</text>
+  <rect x="1363" y="53" width="140" height="135" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="1360" y="50" width="140" height="135" class="mother-lineage" rx="8"/>
+  <circle cx="1430" cy="75" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="1424" cy="72" r="2" fill="#fff"/>
+  <circle cx="1436" cy="72" r="2" fill="#fff"/>
+  <path d="M 1423 80 Q 1430 85 1437 80" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="1430" y="115" text-anchor="middle" class="member-name">Anne</text>
+  <text x="1430" y="130" text-anchor="middle" class="member-name">Anderson</text>
+  <text x="1430" y="150" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="1430" y="168" text-anchor="middle" class="member-info">Born: 1920-12-05</text>
+  <rect x="228" y="263" width="140" height="155" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="225" y="260" width="140" height="155" class="father-lineage" rx="8"/>
+  <circle cx="295" cy="290" r="18" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="289" cy="287" r="2" fill="#fff"/>
+  <circle cx="301" cy="287" r="2" fill="#fff"/>
+  <path d="M 288 295 Q 295 300 302 295" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="295" y="340" text-anchor="middle" class="member-name">Edward</text>
+  <text x="295" y="355" text-anchor="middle" class="member-name">Johnson</text>
+  <text x="295" y="375" text-anchor="middle" class="member-info">♂ Male</text>
+  <text x="295" y="393" text-anchor="middle" class="member-info">Born: 1945-05-10</text>
+  <rect x="588" y="263" width="140" height="155" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="585" y="260" width="140" height="155" class="father-lineage" rx="8"/>
+  <circle cx="655" cy="290" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="649" cy="287" r="2" fill="#fff"/>
+  <circle cx="661" cy="287" r="2" fill="#fff"/>
+  <path d="M 648 295 Q 655 300 662 295" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="655" y="340" text-anchor="middle" class="member-name">Susan</text>
+  <text x="655" y="355" text-anchor="middle" class="member-name">Miller</text>
+  <text x="655" y="375" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="655" y="393" text-anchor="middle" class="member-info">Born: 1947-09-18</text>
+  <rect x="948" y="263" width="140" height="155" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="945" y="260" width="140" height="155" class="mother-lineage" rx="8"/>
+  <circle cx="1015" cy="290" r="18" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="1009" cy="287" r="2" fill="#fff"/>
+  <circle cx="1021" cy="287" r="2" fill="#fff"/>
+  <path d="M 1008 295 Q 1015 300 1022 295" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="1015" y="340" text-anchor="middle" class="member-name">Frank</text>
+  <text x="1015" y="355" text-anchor="middle" class="member-name">Brown</text>
+  <text x="1015" y="375" text-anchor="middle" class="member-info">♂ Male</text>
+  <text x="1015" y="393" text-anchor="middle" class="member-info">Born: 1946-03-22</text>
+  <rect x="1308" y="263" width="140" height="155" fill="rgba(0,0,0,0.1)" rx="8"/>
+  <rect x="1305" y="260" width="140" height="155" class="mother-lineage" rx="8"/>
+  <circle cx="1375" cy="290" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="1369" cy="287" r="2" fill="#fff"/>
+  <circle cx="1381" cy="287" r="2" fill="#fff"/>
+  <path d="M 1368 295 Q 1375 300 1382 295" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="1375" y="340" text-anchor="middle" class="member-name">Laura</text>
+  <text x="1375" y="355" text-anchor="middle" class="member-name">Taylor</text>
+  <text x="1375" y="375" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="1375" y="393" text-anchor="middle" class="member-info">Born: 1948-07-15</text>
+  <rect x="408" y="553" width="140" height="135" fill="rgba(0,0,0,0.15)" rx="8"/>
+  <rect x="405" y="550" width="140" height="135" class="parent-box" rx="8"/>
+  <circle cx="475" cy="575" r="18" fill="#4A90E2" stroke="#fff" stroke-width="2"/>
+  <circle cx="469" cy="572" r="2" fill="#fff"/>
+  <circle cx="481" cy="572" r="2" fill="#fff"/>
+  <path d="M 468 580 Q 475 585 482 580" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="475" y="615" text-anchor="middle" class="member-name">Michael</text>
+  <text x="475" y="630" text-anchor="middle" class="member-name">Johnson</text>
+  <text x="475" y="650" text-anchor="middle" class="member-info">♂ Male</text>
+  <text x="475" y="668" text-anchor="middle" class="member-info">Born: 1970-02-14</text>
+  <rect x="1128" y="553" width="140" height="135" fill="rgba(0,0,0,0.15)" rx="8"/>
+  <rect x="1125" y="550" width="140" height="135" class="parent-box" rx="8"/>
+  <circle cx="1195" cy="575" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="1189" cy="572" r="2" fill="#fff"/>
+  <circle cx="1201" cy="572" r="2" fill="#fff"/>
+  <path d="M 1188 580 Q 1195 585 1202 580" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="1195" y="615" text-anchor="middle" class="member-name">Sarah</text>
+  <text x="1195" y="630" text-anchor="middle" class="member-name">Brown</text>
+  <text x="1195" y="650" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="1195" y="668" text-anchor="middle" class="member-info">Born: 1972-11-30</text>
+  <rect x="568" y="833" width="140" height="145" fill="rgba(0,0,0,0.15)" rx="8"/>
+  <rect x="565" y="830" width="140" height="145" class="child-box" rx="8"/>
+  <circle cx="635" cy="855" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="629" cy="852" r="2" fill="#fff"/>
+  <circle cx="641" cy="852" r="2" fill="#fff"/>
+  <path d="M 628 860 Q 635 865 642 860" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="635" y="895" text-anchor="middle" class="member-name">Emma</text>
+  <text x="635" y="910" text-anchor="middle" class="member-name">Johnson</text>
+  <text x="635" y="930" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="635" y="948" text-anchor="middle" class="member-info">Born: 2000-01-15</text>
+  <text x="635" y="965" text-anchor="middle" class="member-info">Age: 26</text>
+  <rect x="968" y="833" width="140" height="145" fill="rgba(0,0,0,0.15)" rx="8"/>
+  <rect x="965" y="830" width="140" height="145" class="child-box" rx="8"/>
+  <circle cx="1035" cy="855" r="18" fill="#E24A90" stroke="#fff" stroke-width="2"/>
+  <circle cx="1029" cy="852" r="2" fill="#fff"/>
+  <circle cx="1041" cy="852" r="2" fill="#fff"/>
+  <path d="M 1028 860 Q 1035 865 1042 860" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <text x="1035" y="895" text-anchor="middle" class="member-name">Olivia</text>
+  <text x="1035" y="910" text-anchor="middle" class="member-name">Johnson</text>
+  <text x="1035" y="930" text-anchor="middle" class="member-info">♀ Female</text>
+  <text x="1035" y="948" text-anchor="middle" class="member-info">Born: 2002-03-22</text>
+  <text x="1035" y="965" text-anchor="middle" class="member-info">Age: 23</text>
+</svg>

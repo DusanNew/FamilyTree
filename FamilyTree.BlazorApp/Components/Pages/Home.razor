@@ -1,0 +1,122 @@
+﻿@page "/"
+@using FamilyTree.Database.Models
+@using System.Net.Http.Json
+@using System.Text
+@inject HttpClient Http
+@rendermode InteractiveServer
+
+<PageTitle>Family Tree</PageTitle>
+
+<div class="home-container">
+    <div class="hero-section">
+        <div class="tree-icon">🌳</div>
+        <h1 class="main-title">Family Tree</h1>
+        <p class="subtitle">Discover Your Roots, Connect Your Branches</p>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                <h3>Four Generations</h3>
+                <p>Explore family connections across time</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Visual Tree</h3>
+                <p>Beautiful, interactive family diagram</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3>Export SVG</h3>
+                <p>Save and share your family history</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+}
+
+<style>
+    .home-container {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-section {
+        text-align: center;
+        color: white;
+        padding: 3rem;
+        max-width: 1200px;
+    }
+
+    .tree-icon {
+        font-size: 8rem;
+        margin-bottom: 1rem;
+        animation: sway 3s ease-in-out infinite;
+    }
+
+    @@keyframes sway {
+        0%, 100% { transform: rotate(-3deg); }
+        50% { transform: rotate(3deg); }
+    }
+
+    .main-title {
+        font-size: 5rem;
+        margin: 0 0 1rem 0;
+        text-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 4rem;
+        opacity: 0.95;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .feature-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.5rem;
+        margin: 0 0 0.5rem 0;
+        font-weight: 600;
+    }
+
+    .feature-card p {
+        font-size: 1rem;
+        margin: 0;
+        opacity: 0.9;
+    }
+</style>

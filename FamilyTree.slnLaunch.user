@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "FamilyTree.BlazorApp\\FamilyTree.BlazorApp.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "FamilyTree.Api\\FamilyTree.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

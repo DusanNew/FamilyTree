@@ -1,0 +1,417 @@
+@page "/view-family-tree"
+@using FamilyTree.Database.Models
+@using System.Net.Http.Json
+@using System.Text
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<PageTitle>View Family Tree</PageTitle>
+
+<div class="viewer-container">
+    @if (isLoading)
+    {
+        <div class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Loading your family tree...</p>
+        </div>
+    }
+    else if (hasError)
+    {
+        <div class="error-message">
+            <span class="error-icon">⚠️</span>
+            <h2>Unable to Load Family Tree</h2>
+            <p>@errorMessage</p>
+            <button class="btn-retry" @onclick="RetryLoad">Retry</button>
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(svgContent))
+    {
+        <div class="svg-viewer">
+            <div class="toolbar">
+                <h2>🌳 Family Tree Visualization</h2>
+                <button class="btn-download" @onclick="DownloadSvg">💾 Download SVG</button>
+            </div>
+            <div class="svg-container">
+                @((MarkupString)svgContent)
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<FamilyMember>? familyMembers;
+    private bool isLoading = true;
+    private bool hasError = false;
+    private string errorMessage = "";
+    private string svgContent = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAndGenerateSvg();
+    }
+
+    private async Task LoadAndGenerateSvg()
+    {
+        isLoading = true;
+        hasError = false;
+        StateHasChanged();
+
+        try
+        {
+            familyMembers = await Http.GetFromJsonAsync<List<FamilyMember>>("http://localhost:5120/api/family");
+            
+            if (familyMembers == null || !familyMembers.Any())
+            {
+                hasError = true;
+                errorMessage = "No family data available.";
+            }
+            else
+            {
+                svgContent = GenerateSvgContent();
+                
+                // Also save to file
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "family-tree-svg.svg");
+                await File.WriteAllTextAsync(filePath, svgContent);
+            }
+        }
+        catch (Exception ex)
+        {
+            hasError = true;
+            errorMessage = $"Error loading family data: {ex.Message}. Please ensure the API is running on http://localhost:5120";
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task RetryLoad()
+    {
+        await LoadAndGenerateSvg();
+    }
+
+    private void DownloadSvg()
+    {
+        // Trigger download via JavaScript interop would be needed here
+        // For now, the file is already saved to disk
+    }
+
+    private string GenerateSvgContent()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+        sb.AppendLine(@"<svg xmlns=""http://www.w3.org/2000/svg"" viewBox=""0 0 1600 1000"" width=""1600"" height=""1000"">");
+        sb.AppendLine(@"  <defs>");
+        sb.AppendLine(@"    <style>");
+        sb.AppendLine(@"      .member-box { fill: white; stroke: #333; stroke-width: 2; rx: 8; }");
+        sb.AppendLine(@"      .father-lineage { fill: url(#blueGrad); stroke: #1976D2; stroke-width: 2.5; }");
+        sb.AppendLine(@"      .mother-lineage { fill: url(#pinkGrad); stroke: #C2185B; stroke-width: 2.5; }");
+        sb.AppendLine(@"      .parent-box { fill: url(#purpleGrad); stroke: #5E35B1; stroke-width: 3; }");
+        sb.AppendLine(@"      .child-box { fill: url(#yellowGrad); stroke: #F57F17; stroke-width: 3; }");
+        sb.AppendLine(@"      .member-name { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #000; }");
+        sb.AppendLine(@"      .member-info { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #555; }");
+        sb.AppendLine(@"      .line { stroke: #4A5568; stroke-width: 2.5; fill: none; stroke-linecap: round; }");
+        sb.AppendLine(@"      .junction { fill: #CBD5E0; stroke: #4A5568; stroke-width: 2; }");
+        sb.AppendLine(@"    </style>");
+        sb.AppendLine(@"    <linearGradient id=""blueGrad"" x1=""0%"" y1=""0%"" x2=""0%"" y2=""100%"">");
+        sb.AppendLine(@"      <stop offset=""0%"" style=""stop-color:#E3F2FD;stop-opacity:1"" />");
+        sb.AppendLine(@"      <stop offset=""100%"" style=""stop-color:#BBDEFB;stop-opacity:1"" />");
+        sb.AppendLine(@"    </linearGradient>");
+        sb.AppendLine(@"    <linearGradient id=""pinkGrad"" x1=""0%"" y1=""0%"" x2=""0%"" y2=""100%"">");
+        sb.AppendLine(@"      <stop offset=""0%"" style=""stop-color:#FCE4EC;stop-opacity:1"" />");
+        sb.AppendLine(@"      <stop offset=""100%"" style=""stop-color:#F8BBD0;stop-opacity:1"" />");
+        sb.AppendLine(@"    </linearGradient>");
+        sb.AppendLine(@"    <linearGradient id=""purpleGrad"" x1=""0%"" y1=""0%"" x2=""0%"" y2=""100%"">");
+        sb.AppendLine(@"      <stop offset=""0%"" style=""stop-color:#EDE7F6;stop-opacity:1"" />");
+        sb.AppendLine(@"      <stop offset=""100%"" style=""stop-color:#D1C4E9;stop-opacity:1"" />");
+        sb.AppendLine(@"    </linearGradient>");
+        sb.AppendLine(@"    <linearGradient id=""yellowGrad"" x1=""0%"" y1=""0%"" x2=""0%"" y2=""100%"">");
+        sb.AppendLine(@"      <stop offset=""0%"" style=""stop-color:#FFF9C4;stop-opacity:1"" />");
+        sb.AppendLine(@"      <stop offset=""100%"" style=""stop-color:#FFF59D;stop-opacity:1"" />");
+        sb.AppendLine(@"    </linearGradient>");
+        sb.AppendLine(@"  </defs>");
+        sb.AppendLine(@"  <rect width=""100%"" height=""100%"" fill=""#F7FAFC""/>");
+
+        // Lines from Gen 0 to Gen 1
+        sb.AppendLine($@"  <path d=""M 170 185 L 170 220 L 295 220"" class=""line""/>");
+        sb.AppendLine($@"  <path d=""M 350 185 L 350 220 L 295 220"" class=""line""/>");
+        sb.AppendLine($@"  <circle cx=""295"" cy=""220"" r=""5"" class=""junction""/>");
+        sb.AppendLine($@"  <line x1=""295"" y1=""225"" x2=""295"" y2=""260"" class=""line""/>");
+
+        sb.AppendLine($@"  <path d=""M 530 185 L 530 220 L 655 220"" class=""line""/>");
+        sb.AppendLine($@"  <path d=""M 710 185 L 710 220 L 655 220"" class=""line""/>");
+        sb.AppendLine($@"  <circle cx=""655"" cy=""220"" r=""5"" class=""junction""/>");
+        sb.AppendLine($@"  <line x1=""655"" y1=""225"" x2=""655"" y2=""260"" class=""line""/>");
+
+        sb.AppendLine($@"  <path d=""M 890 185 L 890 220 L 1015 220"" class=""line""/>");
+        sb.AppendLine($@"  <path d=""M 1070 185 L 1070 220 L 1015 220"" class=""line""/>");
+        sb.AppendLine($@"  <circle cx=""1015"" cy=""220"" r=""5"" class=""junction""/>");
+        sb.AppendLine($@"  <line x1=""1015"" y1=""225"" x2=""1015"" y2=""260"" class=""line""/>");
+
+        sb.AppendLine($@"  <path d=""M 1250 185 L 1250 220 L 1375 220"" class=""line""/>");
+        sb.AppendLine($@"  <path d=""M 1430 185 L 1430 220 L 1375 220"" class=""line""/>");
+        sb.AppendLine($@"  <circle cx=""1375"" cy=""220"" r=""5"" class=""junction""/>");
+        sb.AppendLine($@"  <line x1=""1375"" y1=""225"" x2=""1375"" y2=""260"" class=""line""/>");
+
+        // Lines from Gen 1 to Gen 2
+        sb.AppendLine($@"  <path d=""M 295 415 L 295 450 L 475 450"" class=""line""/>");
+        sb.AppendLine($@"  <path d=""M 655 415 L 655 450 L 475 450"" class=""line""/>");
+        sb.AppendLine($@"  <circle cx=""475"" cy=""450"" r=""5"" class=""junction""/>");
+        sb.AppendLine($@"  <line x1=""475"" y1=""455"" x2=""475"" y2=""550"" class=""line""/>");
+
+        sb.AppendLine($@"  <path d=""M 1015 415 L 1015 450 L 1195 450"" class=""line""/>");
+        sb.AppendLine($@"  <path d=""M 1375 415 L 1375 450 L 1195 450"" class=""line""/>");
+        sb.AppendLine($@"  <circle cx=""1195"" cy=""450"" r=""5"" class=""junction""/>");
+        sb.AppendLine($@"  <line x1=""1195"" y1=""455"" x2=""1195"" y2=""550"" class=""line""/>");
+
+        // Lines from Gen 2 to Gen 3
+        sb.AppendLine($@"  <path d=""M 475 685 L 475 720 L 835 720"" class=""line""/>");
+        sb.AppendLine($@"  <path d=""M 1195 685 L 1195 720 L 835 720"" class=""line""/>");
+        sb.AppendLine($@"  <circle cx=""835"" cy=""720"" r=""6"" class=""junction""/>");
+        sb.AppendLine($@"  <line x1=""835"" y1=""726"" x2=""635"" y2=""830"" class=""line""/>");
+        sb.AppendLine($@"  <line x1=""835"" y1=""726"" x2=""1035"" y2=""830"" class=""line""/>");
+
+        // Generation 0 - Great Grandparents (Y: 50)
+        var gen0 = familyMembers.Where(m => m.Generation == 0).OrderBy(m => m.Id).ToList();
+        for (int i = 0; i < gen0.Count; i++)
+        {
+            var member = gen0[i];
+            var x = 100 + (i * 180);
+            var y = 50;
+            var cssClass = GetLineageClass(member.Id) == "card-father-lineage" ? "father-lineage" : "mother-lineage";
+            
+            sb.AppendLine($@"  <rect x=""{x + 3}"" y=""{y + 3}"" width=""140"" height=""135"" fill=""rgba(0,0,0,0.1)"" rx=""8""/>");
+            sb.AppendLine($@"  <rect x=""{x}"" y=""{y}"" width=""140"" height=""135"" class=""{cssClass}"" rx=""8""/>");
+            
+            DrawAvatar(sb, x + 70, y + 25, member.Gender == "M");
+            
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 65}"" text-anchor=""middle"" class=""member-name"">{member.FirstName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 80}"" text-anchor=""middle"" class=""member-name"">{member.LastName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 100}"" text-anchor=""middle"" class=""member-info"">{(member.Gender == "M" ? "♂ Male" : "♀ Female")}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 118}"" text-anchor=""middle"" class=""member-info"">Born: {member.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A"}</text>");
+        }
+
+        // Generation 1 - Grandparents (Y: 260)
+        var gen1 = familyMembers.Where(m => m.Generation == 1).OrderBy(m => m.Id).ToList();
+        for (int i = 0; i < gen1.Count; i++)
+        {
+            var member = gen1[i];
+            var x = 225 + (i * 360);
+            var y = 260;
+            var cssClass = GetLineageClass(member.Id) == "card-father-lineage" ? "father-lineage" : "mother-lineage";
+            
+            sb.AppendLine($@"  <rect x=""{x + 3}"" y=""{y + 3}"" width=""140"" height=""155"" fill=""rgba(0,0,0,0.1)"" rx=""8""/>");
+            sb.AppendLine($@"  <rect x=""{x}"" y=""{y}"" width=""140"" height=""155"" class=""{cssClass}"" rx=""8""/>");
+            
+            DrawAvatar(sb, x + 70, y + 30, member.Gender == "M");
+            
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 80}"" text-anchor=""middle"" class=""member-name"">{member.FirstName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 95}"" text-anchor=""middle"" class=""member-name"">{member.LastName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 115}"" text-anchor=""middle"" class=""member-info"">{(member.Gender == "M" ? "♂ Male" : "♀ Female")}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 133}"" text-anchor=""middle"" class=""member-info"">Born: {member.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A"}</text>");
+        }
+
+        // Generation 2 - Parents (Y: 550)
+        var gen2 = familyMembers.Where(m => m.Generation == 2).OrderBy(m => m.Id).ToList();
+        for (int i = 0; i < gen2.Count; i++)
+        {
+            var member = gen2[i];
+            var x = 405 + (i * 720);
+            var y = 550;
+            
+            sb.AppendLine($@"  <rect x=""{x + 3}"" y=""{y + 3}"" width=""140"" height=""135"" fill=""rgba(0,0,0,0.15)"" rx=""8""/>");
+            sb.AppendLine($@"  <rect x=""{x}"" y=""{y}"" width=""140"" height=""135"" class=""parent-box"" rx=""8""/>");
+            
+            DrawAvatar(sb, x + 70, y + 25, member.Gender == "M");
+            
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 65}"" text-anchor=""middle"" class=""member-name"">{member.FirstName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 80}"" text-anchor=""middle"" class=""member-name"">{member.LastName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 100}"" text-anchor=""middle"" class=""member-info"">{(member.Gender == "M" ? "♂ Male" : "♀ Female")}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 118}"" text-anchor=""middle"" class=""member-info"">Born: {member.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A"}</text>");
+        }
+
+        // Generation 3 - Children (Y: 830)
+        var gen3 = familyMembers.Where(m => m.Generation == 3).OrderBy(m => m.Id).ToList();
+        for (int i = 0; i < gen3.Count; i++)
+        {
+            var member = gen3[i];
+            var x = 565 + (i * 400);
+            var y = 830;
+            
+            sb.AppendLine($@"  <rect x=""{x + 3}"" y=""{y + 3}"" width=""140"" height=""145"" fill=""rgba(0,0,0,0.15)"" rx=""8""/>");
+            sb.AppendLine($@"  <rect x=""{x}"" y=""{y}"" width=""140"" height=""145"" class=""child-box"" rx=""8""/>");
+            
+            DrawAvatar(sb, x + 70, y + 25, member.Gender == "M");
+            
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 65}"" text-anchor=""middle"" class=""member-name"">{member.FirstName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 80}"" text-anchor=""middle"" class=""member-name"">{member.LastName}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 100}"" text-anchor=""middle"" class=""member-info"">{(member.Gender == "M" ? "♂ Male" : "♀ Female")}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 118}"" text-anchor=""middle"" class=""member-info"">Born: {member.BirthDate?.ToString("yyyy-MM-dd") ?? "N/A"}</text>");
+            sb.AppendLine($@"  <text x=""{x + 70}"" y=""{y + 135}"" text-anchor=""middle"" class=""member-info"">Age: {GetAge(member.BirthDate ?? DateTime.Now)}</text>");
+        }
+
+        sb.AppendLine(@"</svg>");
+        return sb.ToString();
+    }
+
+    private void DrawAvatar(StringBuilder sb, double cx, double cy, bool isMale)
+    {
+        var color = isMale ? "#4A90E2" : "#E24A90";
+        var radius = 18;
+        
+        sb.AppendLine($@"  <circle cx=""{cx}"" cy=""{cy}"" r=""{radius}"" fill=""{color}"" stroke=""#fff"" stroke-width=""2""/>");
+        sb.AppendLine($@"  <circle cx=""{cx - 6}"" cy=""{cy - 3}"" r=""2"" fill=""#fff""/>");
+        sb.AppendLine($@"  <circle cx=""{cx + 6}"" cy=""{cy - 3}"" r=""2"" fill=""#fff""/>");
+        sb.AppendLine($@"  <path d=""M {cx - 7} {cy + 5} Q {cx} {cy + 10} {cx + 7} {cy + 5}"" stroke=""#fff"" stroke-width=""1.5"" fill=""none"" stroke-linecap=""round""/>");
+    }
+
+    private int GetAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - birthDate.Year;
+        if (birthDate.Date > today.AddYears(-age)) age--;
+        return age;
+    }
+
+    private string GetLineageClass(int id)
+    {
+        if (new[] { 1, 2, 3, 4, 9, 10 }.Contains(id))
+            return "card-father-lineage";
+        if (new[] { 5, 6, 7, 8, 11, 12 }.Contains(id))
+            return "card-mother-lineage";
+        return "";
+    }
+}
+
+<style>
+    .viewer-container {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 2rem;
+    }
+
+    .loading-overlay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh;
+        color: #5E35B1;
+    }
+
+    .spinner {
+        border: 6px solid rgba(94, 53, 177, 0.2);
+        border-top: 6px solid #5E35B1;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1.5rem;
+    }
+
+    @@keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .loading-overlay p {
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+
+    .error-message {
+        text-align: center;
+        padding: 3rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        max-width: 600px;
+        margin: 3rem auto;
+    }
+
+    .error-icon {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .error-message h2 {
+        color: #C62828;
+        margin-bottom: 1rem;
+    }
+
+    .error-message p {
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .btn-retry {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-retry:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .svg-viewer {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .toolbar {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+
+    .toolbar h2 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    .btn-download {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid white;
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-download:hover {
+        background: white;
+        color: #667eea;
+    }
+
+    .svg-container {
+        padding: 2rem;
+        overflow: auto;
+        max-height: 85vh;
+    }
+
+    .svg-container svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
